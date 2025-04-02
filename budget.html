@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Set Budget | Budget Tracker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="bg-gray-100">
+    <header class="bg-blue-600 text-white p-4 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold">Set Monthly Budget</h1>
+            <nav class="flex space-x-4">
+                <a href="index.html" class="px-3 py-2 rounded hover:bg-blue-500">Dashboard</a>
+                <a href="add-expense.html" class="px-3 py-2 rounded hover:bg-blue-500">Add Expense</a>
+                <a href="import.html" class="px-3 py-2 rounded hover:bg-blue-500">Import</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-6 max-w-3xl">
+        <div class="bg-white p-8 rounded-lg shadow-lg">
+            <h2 class="text-xl font-semibold mb-6">Budget Allocation</h2>
+            
+            <div class="mb-6">
+                <label class="block text-gray-700 mb-2" for="totalIncome">Monthly Income</label>
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">₹</span>
+                    <input type="number" id="totalIncome" value="2500" class="w-full pl-8 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="₹0.00" min="0" step="0.01">
+                </div>
+            </div>
+
+            <div class="space-y-6">
+                <div class="border-b pb-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <label class="text-gray-700">Food</label>
+                        <span class="font-medium">₹<span id="food-amount">750</span></span>
+                    </div>
+                    <input type="range" id="food-slider" min="0" max="100" value="30" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                </div>
+
+                <div class="border-b pb-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <label class="text-gray-700">Transport</label>
+                        <span class="font-medium">₹<span id="transport-amount">500</span></span>
+                    </div>
+                    <input type="range" id="transport-slider" min="0" max="100" value="20" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                </div>
+
+                <div class="border-b pb-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <label class="text-gray-700">Bills</label>
+                        <span class="font-medium">₹<span id="bills-amount">500</span></span>
+                    </div>
+                    <input type="range" id="bills-slider" min="0" max="100" value="20" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                </div>
+
+                <div class="border-b pb-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <label class="text-gray-700">Entertainment</label>
+                        <span class="font-medium">₹<span id="entertainment-amount">250</span></span>
+                    </div>
+                    <input type="range" id="entertainment-slider" min="0" max="100" value="10" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                </div>
+
+                <div class="border-b pb-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <label class="text-gray-700">Shopping</label>
+                        <span class="font-medium">₹<span id="shopping-amount">250</span></span>
+                    </div>
+                    <input type="range" id="shopping-slider" min="0" max="100" value="10" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                </div>
+
+                <div class="border-b pb-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <label class="text-gray-700">Savings</label>
+                        <span class="font-medium">₹<span id="savings-amount">250</span></span>
+                    </div>
+                    <input type="range" id="savings-slider" min="0" max="100" value="10" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                </div>
+            </div>
+
+            <div class="mt-8 flex justify-end space-x-4">
+                <button class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-100">Reset</button>
+                <button class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <i class="fas fa-save mr-2"></i>Save Budget
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Basic slider logic would go here
+        document.getElementById('totalIncome').addEventListener('input', updateBudgetAmounts);
+        
+        function updateBudgetAmounts() {
+            const income = parseFloat(document.getElementById('totalIncome').value) || 0;
+            document.querySelectorAll('[id$="-slider"]').forEach(slider => {
+                const percent = parseInt(slider.value);
+                const amount = (income * percent / 100).toFixed(2);
+                const category = slider.id.replace('-slider', '');
+                document.getElementById(`${category}-amount`).textContent = amount;
+            });
+        }
+
+        // Initialize on load
+        updateBudgetAmounts();
+    </script>
+</body>
+</html>
